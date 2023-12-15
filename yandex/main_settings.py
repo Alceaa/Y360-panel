@@ -13,3 +13,6 @@ ORG_ID = ''
 
 #Switch on only while developing
 DEBUG = False
+
+#Hosts
+ALLOWED_HOSTS = []
