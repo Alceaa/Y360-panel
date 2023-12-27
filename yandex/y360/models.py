@@ -11,7 +11,7 @@ class Staff(models.Model):
     email = models.CharField(max_length=200, help_text="personal email")
     departmentId = models.IntegerField(help_text="ID of department")
     role = models.CharField(max_length=100, help_text="Staff or Bot or Admin")
-    img = models.IntegerField(help_text="Ico ID from yandex")
+    img = models.CharField(max_length=100, help_text="Ico ID from yandex")
 
     def __str__(self):
         return self.name
@@ -89,9 +89,9 @@ def staff_update(y):
             m_user.role = "Сотрудник"
         avatar = user["avatarId"]
         if avatar == "":
-            m_user.img = 0
+            m_user.img = "0"
         else:
-            m_user.img = int(avatar)
+            m_user.img = avatar
 
         m_user.save()
 

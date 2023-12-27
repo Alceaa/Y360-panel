@@ -27,4 +27,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/y360/staff', permanent=True)),
     path('login/', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
 ]
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

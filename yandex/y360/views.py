@@ -948,7 +948,7 @@ def group_staff_lookup(request):
 def avatarFormat(id):
     global avatarSrc
     img = avatarSrc.format("null")
-    if id != 0:
+    if id != "0":
         img = avatarSrc.format(id)
     return img
 

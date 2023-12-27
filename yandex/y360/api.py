@@ -81,7 +81,11 @@ class Yapi(object):
 
     def getJSON(self, url, headers):
         self.response=requests.get(url=url, headers=headers)
-        return json.loads(self.response.text)
+        if(self.response.status_code == requests.codes.ok):
+            return json.loads(self.response.text)
+        else:
+            print(self.response.text)
+            return [self.response.status_code, False, json.loads(self.response.text)]
 
     def postJSON(self, url, data, headers):
         self.response=requests.post(url=url, data=json.dumps(data), headers=headers)
