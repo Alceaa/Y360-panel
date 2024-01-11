@@ -57,8 +57,8 @@ class Domains(models.Model):
 def update():
     global y
     staff_update(y)
-    department_update(y)
     group_update(y)
+    department_update(y)
     domain_update(y)
     print("db is ready")
      
@@ -95,9 +95,6 @@ def staff_update(y):
 
         m_user.save()
 
-    for id in list(Staff.objects.values_list("id", flat=True)):
-        if id not in staff_users_id:
-            Staff.objects.get(id=id).delete()
 
     #Groups_Staff   
     for user in staff_users:
@@ -110,9 +107,6 @@ def staff_update(y):
                     pairs.append((user["id"], user_group))
                 except ObjectDoesNotExist:
                     continue
-    for pair in list(Groups_Staff.objects.values_list("staffId", "groupId")):
-        if pair not in pairs:
-            Groups_Staff.objects.get(staffId=pair[0], groupId=pair[1]).delete()
 
 def department_update(y):
     departments_prepare = y.departments("1", "1")
@@ -130,9 +124,6 @@ def department_update(y):
         m_department.membersCount = int(department["membersCount"])
         m_department.label = department["label"]
         m_department.save()
-    for id in list(Departments.objects.values_list("id", flat=True)):
-        if id not in departments_id:
-            Departments.objects.get(id=id).delete()
 
 def group_update(y):
     groups_prepare = y.groups("1", "1")
@@ -176,15 +167,7 @@ def group_update(y):
                         groups_members_elements.append((group["id"], member["id"], member["type"]))
                     except ObjectDoesNotExist:
                         continue
-    for id in list(Groups.objects.values_list("id", flat=True)):
-        if id not in groups_id:
-            Groups.objects.get(id=id).delete() 
-    for pair in list(Groups_Hierarchy.objects.values_list("parentId", "childId")):
-        if pair not in groups_hierarchy_pairs:
-            Groups_Hierarchy.objects.get(parentId=pair[0], childId=pair[1]).delete()
-    for element in list(Groups_Members.objects.values_list("groupId", "memberId", "memberType")):
-        if element not in groups_members_elements:
-            Groups_Members.objects.get(groupId=element[0], memberId=element[1], memberType=element[2]).delete()
+
 
 def domain_update(y):
     domains_prepare = y.domains("1", "1")
